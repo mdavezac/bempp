@@ -39,6 +39,9 @@ install:
   - if [ "$CXX" == "clang++" ]; then CXX=clang++-3.3; fi
 
   - sudo apt-get install -qq cmake
+  - sudo apt-get install -qq libboost-all-dev
+  - sudo apt-get install libdune-common-dev libdune-geometry-dev
+  - sudo apt-get install libdune-grid-dev libdune-istl-dev libdune-localfunctions-dev
   - $CXX --version
 
   # You may want to periodically update this, although the conda update
@@ -60,7 +63,7 @@ install:
   - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION numpy cython sphinx pytest
   - source activate test-environment
 
-  - pip install "mako"
+  - pip install mako
   - conda list
 
   - mkdir build
