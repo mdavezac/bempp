@@ -19,24 +19,25 @@ before_install:
 
 install:
   # install g++ 4.8, if tests are run with g++
-  - if [ "$CXX" == "g++" ]; then 
-      sudo apt-get install -qq g++-4.8
-      sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 50 
-    fi
+  - if [ "$CXX" == "g++" ]; then sudo apt-get install -qq g++-4.8; fi
+  - if [ "$CXX" == "g++" ]; then sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 50; fi
 
   # install clang-3.3
-  - if [ "$CXX" == "clang++" ]; then 
-      sudo apt-get install --allow-unauthenticated -qq clang-3.3
-      # Install libc++ if tests are run with clang++
-      # svn co --quiet http://llvm.org/svn/llvm-project/libcxx/trunk@181765 libcxx
-      #  cd libcxx/lib && bash buildit
-      # sudo cp ./libc++.so.1.0 /usr/lib/
-      # mkdir /usr/include/c++/v1;
-      # cd .. && sudo cp -r include/* /usr/include/c++/v1/
-      # cd /usr/lib && sudo ln -sf libc++.so.1.0 libc++.so
-      # sudo ln -sf libc++.so.1.0 libc++.so.1 && cd $cwd
-      export CXX=clang++-3.3
-    fi
+  - if [ "$CXX" == "clang++" ]; then sudo apt-get install --allow-unauthenticated -qq clang-3.3; fi
+  - if [ "$CXX" == "clang++" ]; then cwd=$(pwd); fi
+
+  # Install libc++ if tests are run with clang++
+  - if [ "$CXX" == "clang++" ]; then svn co --quiet http://llvm.org/svn/llvm-project/libcxx/trunk@181765 libcxx; fi
+
+  - if [ "$CXX" == "clang++" ]; then cd libcxx/lib && bash buildit; fi
+  - if [ "$CXX" == "clang++" ]; then sudo cp ./libc++.so.1.0 /usr/lib/; fi
+  - if [ "$CXX" == "clang++" ]; then sudo mkdir /usr/include/c++/v1; fi
+  - if [ "$CXX" == "clang++" ]; then cd .. && sudo cp -r include/* /usr/include/c++/v1/; fi
+  - if [ "$CXX" == "clang++" ]; then cd /usr/lib && sudo ln -sf libc++.so.1.0 libc++.so; fi
+  - if [ "$CXX" == "clang++" ]; then sudo ln -sf libc++.so.1.0 libc++.so.1 && cd $cwd; fi
+
+  - if [ "$CXX" == "clang++" ]; then CXX=clang++-3.3; fi
+
   - sudo apt-get install -qq cmake
   - sudo apt-get install -qq libboost-all-dev
   - sudo apt-get install libdune-common-dev libdune-geometry-dev
