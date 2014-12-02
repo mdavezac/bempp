@@ -40,8 +40,7 @@ install:
 
   - sudo apt-get install -qq cmake
   - sudo apt-get install -qq libboost-all-dev
-  - sudo apt-get install libdune-common-dev libdune-geometry-dev
-  - sudo apt-get install libdune-grid-dev libdune-istl-dev libdune-localfunctions-dev
+  - sudo apt-cache search libdune
   - $CXX --version
 
   # You may want to periodically update this, although the conda update
