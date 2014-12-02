@@ -51,6 +51,9 @@ if (TBB_LIBRARY)
 	target_link_libraries(libbempp optimized ${TBB_LIBRARY} ${TBB_MALLOC_LIBRARY})
 endif()
 
+# Link Cairo
+# target_link_libraries(libbempp ${CAIRO_LIBRARIES})
+
 if(TBB_LIBRARY_DEBUG)
     target_link_libraries(libbempp
         debug ${TBB_LIBRARY_DEBUG} ${TBB_MALLOC_LIBRARY_DEBUG})

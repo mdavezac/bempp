@@ -99,6 +99,7 @@ set(BEMPP_INCLUDE_DIRS
    ${dune-common_INCLUDE_DIRS}
    ${Trilinos_INCLUDE_DIRS}
    ${Trilinos_TPL_INCLUDE_DIRS}
+   ${CAIRO_INCLUDE_DIRS}
 )
 foreach(component Boost BLAS LAPACK ARMADILLO TBB ALUGrid)
     if(${component}_INCLUDE_DIR)
@@ -117,6 +118,7 @@ add_to_ld_path(
     ${TBB_LIBRARY_DEBUG}
     ${TBB_MALLOC_LIBRARY}
     ${TBB_MALLOC_LIBRARY_DEBUG}
+    ${CAIRO_LIBRARIES}
 )
 
 lookup_python_package(Cython VERSION 0.21 REQUIRED PATH "${EXTERNAL_ROOT}/python")

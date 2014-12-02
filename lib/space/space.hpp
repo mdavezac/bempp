@@ -26,7 +26,6 @@
 #include "../common/common.hpp"
 #include "bempp/common/config_trilinos.hpp"
 
-
 #include "../common/bounding_box.hpp"
 #include "../common/not_implemented_error.hpp"
 #include "../common/deprecated.hpp"
@@ -39,8 +38,7 @@
 #include "../common/armadillo_fwd.hpp"
 #include <vector>
 
-namespace Fiber
-{
+namespace Fiber {
 
 /** \cond FORWARD_DECL */
 template <typename ValueType> class BasisData;
@@ -49,8 +47,7 @@ template <typename CoordinateType> class GeometricalData;
 
 } // namespace Fiber
 
-namespace Bempp
-{
+namespace Bempp {
 
 /** \cond FORWARD_DECL */
 class Grid;
@@ -62,9 +59,9 @@ template <typename ValueType> class DiscreteSparseBoundaryOperator;
 template <typename ValueType> class DiscreteBoundaryOperator;
 /** \endcond */
 
-enum DofType
-{
-    GLOBAL_DOFS, FLAT_LOCAL_DOFS
+enum DofType {
+  GLOBAL_DOFS,
+  FLAT_LOCAL_DOFS
 };
 
 /** \ingroup space
@@ -596,18 +593,18 @@ public:
             const std::vector<unsigned int>& clusterIdsOfGlobalDofs,
             DofType dofType) const;
     /** @} */
-
 private:
-    /** \cond PRIVATE */
-    shared_ptr<const Grid> m_grid;
-    shared_ptr<GeometryFactory> m_elementGeometryFactory;
-    unsigned int m_level;
-    std::unique_ptr<GridView> m_view;
-    /** \endcond */
+  /** \cond PRIVATE */
+  shared_ptr<const Grid> m_grid;
+  shared_ptr<GeometryFactory> m_elementGeometryFactory;
+  unsigned int m_level;
+  std::unique_ptr<GridView> m_view;
+  /** \endcond */
 };
 
 /** \relates Space
- *  \brief Get pointers to Basis objects corresponding to all elements of the grid
+ *  \brief Get pointers to Basis objects corresponding to all elements of the
+ *grid
  *  on which a function space is defined.
  *
  *  \param[in] space
@@ -620,34 +617,39 @@ private:
  *  An exception is raised if <tt>space.assignDofs()</tt> has not been called
  *  prior to calling this function. */
 template <typename BasisFunctionType>
-void getAllShapesets(const Space<BasisFunctionType>& space,
-        std::vector<const Fiber::Shapeset<BasisFunctionType>*>& shapesets);
+void getAllShapesets(
+    const Space<BasisFunctionType> &space,
+    std::vector<const Fiber::Shapeset<BasisFunctionType> *> &shapesets);
 
 /** \relates Space
- *  \brief Get pointers to Basis objects corresponding to all elements of the grid
+ *  \brief Get pointers to Basis objects corresponding to all elements of the
+ *grid
  *  on which a function space is defined.
  *
  *  \deprecated This function is deprecated. Use getAllShapesets() instead. */
 template <typename BasisFunctionType>
-void BEMPP_DEPRECATED getAllBases(const Space<BasisFunctionType>& space,
-        std::vector<const Fiber::Basis<BasisFunctionType>*>& bases);
+void BEMPP_DEPRECATED
+getAllBases(const Space<BasisFunctionType> &space,
+            std::vector<const Fiber::Basis<BasisFunctionType> *> &bases);
 
 /** \relates Space
  *  \brief Return the maximum polynomial order of the shapesets
  *  defined by \p space on the elements of the space's underlying grid. */
 template <typename BasisFunctionType>
-int maximumShapesetOrder(const Space<BasisFunctionType>& space);
+int maximumShapesetOrder(const Space<BasisFunctionType> &space);
 
 #ifdef WITH_TRILINOS
 template <typename BasisFunctionType, typename ResultType>
-shared_ptr<DiscreteSparseBoundaryOperator<ResultType> >
-constructOperatorMappingGlobalToFlatLocalDofs(const Space<BasisFunctionType>& space);
+shared_ptr<DiscreteSparseBoundaryOperator<ResultType>>
+constructOperatorMappingGlobalToFlatLocalDofs(
+    const Space<BasisFunctionType> &space);
 
 template <typename BasisFunctionType, typename ResultType>
-shared_ptr<DiscreteSparseBoundaryOperator<ResultType> >
-constructOperatorMappingFlatLocalToGlobalDofs(const Space<BasisFunctionType>& space);
+shared_ptr<DiscreteSparseBoundaryOperator<ResultType>>
+constructOperatorMappingFlatLocalToGlobalDofs(
+    const Space<BasisFunctionType> &space);
 #endif // WITH_TRILINOS
 
-} //namespace Bempp
+} // namespace Bempp
 
 #endif

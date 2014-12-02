@@ -23,9 +23,9 @@
 
 #include "boundary_operator.hpp"
 #include "symmetry.hpp"
+#include "../common/types.hpp"
 
-namespace Bempp
-{
+namespace Bempp {
 
 /** \ingroup laplace_3d
  *  \brief Construct a BoundaryOperator object representing the
@@ -68,12 +68,20 @@ namespace Bempp
 template <typename BasisFunctionType, typename ResultType>
 BoundaryOperator<BasisFunctionType, ResultType>
 laplace3dDoubleLayerBoundaryOperator(
-        const shared_ptr<const Context<BasisFunctionType, ResultType> >& context,
-        const shared_ptr<const Space<BasisFunctionType> >& domain,
-        const shared_ptr<const Space<BasisFunctionType> >& range,
-        const shared_ptr<const Space<BasisFunctionType> >& dualToRange,
-        const std::string& label = "",
-        int symmetry = NO_SYMMETRY);
+    const shared_ptr<const Context<BasisFunctionType, ResultType>> &context,
+    const shared_ptr<const Space<BasisFunctionType>> &domain,
+    const shared_ptr<const Space<BasisFunctionType>> &range,
+    const shared_ptr<const Space<BasisFunctionType>> &dualToRange,
+    const std::string &label = "", int symmetry = NO_SYMMETRY);
+
+template <typename BasisFunctionType, typename ResultType>
+BoundaryOperator<BasisFunctionType, ResultType>
+laplace3dDoubleLayerBoundaryOperator(
+    const ParameterList parameterList,
+    const shared_ptr<const Space<BasisFunctionType>> &domain,
+    const shared_ptr<const Space<BasisFunctionType>> &range,
+    const shared_ptr<const Space<BasisFunctionType>> &dualToRange,
+    const std::string &label = "", int symmetry = NO_SYMMETRY);
 
 /** \ingroup laplace_3d
  *  \brief Construct a "synthetic" representation of the double-layer boundary
@@ -151,14 +159,13 @@ laplace3dDoubleLayerBoundaryOperator(
 template <typename BasisFunctionType, typename ResultType>
 BoundaryOperator<BasisFunctionType, ResultType>
 laplace3dSyntheticDoubleLayerBoundaryOperator(
-        const shared_ptr<const Context<BasisFunctionType, ResultType> >& context,
-        const shared_ptr<const Space<BasisFunctionType> >& domain,
-        const shared_ptr<const Space<BasisFunctionType> >& range,
-        const shared_ptr<const Space<BasisFunctionType> >& dualToRange,
-        const shared_ptr<const Space<BasisFunctionType> >& internalTrialSpace,
-        const shared_ptr<const Space<BasisFunctionType> >& internalTestSpace,
-        const std::string& label = "",
-        int symmetry = NO_SYMMETRY);
+    const shared_ptr<const Context<BasisFunctionType, ResultType>> &context,
+    const shared_ptr<const Space<BasisFunctionType>> &domain,
+    const shared_ptr<const Space<BasisFunctionType>> &range,
+    const shared_ptr<const Space<BasisFunctionType>> &dualToRange,
+    const shared_ptr<const Space<BasisFunctionType>> &internalTrialSpace,
+    const shared_ptr<const Space<BasisFunctionType>> &internalTestSpace,
+    const std::string &label = "", int symmetry = NO_SYMMETRY);
 
 } // namespace Bempp
 

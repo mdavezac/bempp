@@ -22,10 +22,10 @@
 #define bempp_laplace_3d_hypersingular_boundary_operator_hpp
 
 #include "boundary_operator.hpp"
+#include "../common/types.hpp"
 #include "symmetry.hpp"
 
-namespace Bempp
-{
+namespace Bempp {
 
 /** \ingroup laplace_3d
  *  \brief Construct a BoundaryOperator object representing the hypersingular
@@ -63,7 +63,8 @@ namespace Bempp
  *  restrictions of the basis functions of \p domain and \p range to individual
  *  elements; \f$Q_i\f$ is the sparse matrix representing the expansion of
  *  <em>i</em>th component of the surface curl of the basis functions of \p
- *  domain in the just mentioned single-element trial functions; and \f$P_i\f$ is
+ *  domain in the just mentioned single-element trial functions; and \f$P_i\f$
+ *is
  *  the sparse matrix whose transpose represents the expansion of the
  *  <em>i</em>th component of the surface curl of the basis functions of \p
  *  dualToRange in the single-element test functions.
@@ -85,15 +86,24 @@ namespace Bempp
 template <typename BasisFunctionType, typename ResultType>
 BoundaryOperator<BasisFunctionType, ResultType>
 laplace3dHypersingularBoundaryOperator(
-        const shared_ptr<const Context<BasisFunctionType, ResultType> >& context,
-        const shared_ptr<const Space<BasisFunctionType> >& domain,
-        const shared_ptr<const Space<BasisFunctionType> >& range,
-        const shared_ptr<const Space<BasisFunctionType> >& dualToRange,
-        const std::string& label = "",
-        int symmetry = NO_SYMMETRY,
-        const BoundaryOperator<BasisFunctionType, ResultType>& externalSlp =
-            BoundaryOperator<BasisFunctionType, ResultType>());
+    const shared_ptr<const Context<BasisFunctionType, ResultType>> &context,
+    const shared_ptr<const Space<BasisFunctionType>> &domain,
+    const shared_ptr<const Space<BasisFunctionType>> &range,
+    const shared_ptr<const Space<BasisFunctionType>> &dualToRange,
+    const std::string &label = "", int symmetry = NO_SYMMETRY,
+    const BoundaryOperator<BasisFunctionType, ResultType> &externalSlp =
+        BoundaryOperator<BasisFunctionType, ResultType>());
 
+template <typename BasisFunctionType, typename ResultType>
+BoundaryOperator<BasisFunctionType, ResultType>
+laplace3dHypersingularBoundaryOperator(
+    const ParameterList& parameterList,
+    const shared_ptr<const Space<BasisFunctionType>> &domain,
+    const shared_ptr<const Space<BasisFunctionType>> &range,
+    const shared_ptr<const Space<BasisFunctionType>> &dualToRange,
+    const std::string &label = "", int symmetry = NO_SYMMETRY,
+    const BoundaryOperator<BasisFunctionType, ResultType> &externalSlp =
+        BoundaryOperator<BasisFunctionType, ResultType>());
 } // namespace Bempp
 
 #endif

@@ -25,15 +25,17 @@
 #include "../fiber/types.hpp"
 #include "../grid/geometry_type.hpp"
 #include "../grid/index_set.hpp"
+#include <Teuchos_ParameterList.hpp>
 
-namespace Bempp
-{
+namespace Bempp {
 
 using Fiber::CallVariant;
 using Fiber::TEST_TRIAL;
 using Fiber::TRIAL_TEST;
 
 using Fiber::ALL_DOFS;
+
+using Teuchos::ParameterList;
 
 typedef int ElementVariant;
 typedef int EntityIndex;
@@ -43,23 +45,19 @@ typedef Fiber::LocalDofIndex LocalDofIndex;
 
 /** \ingroup weak_form_assembly_internal
  *  \brief Local degree of freedom. */
-struct LocalDof
-{
-    LocalDof() {}
-    LocalDof(EntityIndex ei, LocalDofIndex ldi) :
-        entityIndex(ei), dofIndex(ldi) {
-    }
+struct LocalDof {
+  LocalDof() {}
+  LocalDof(EntityIndex ei, LocalDofIndex ldi)
+      : entityIndex(ei), dofIndex(ldi) {}
 
-    EntityIndex entityIndex;
-    LocalDofIndex dofIndex;
+  EntityIndex entityIndex;
+  LocalDofIndex dofIndex;
 };
 
 /** \ingroup weak_form_assembly_internal
  *  \brief Point in a three-dimensional space. */
-template <typename ValueType>
-struct Point3D
-{
-    ValueType x, y, z;
+template <typename ValueType> struct Point3D {
+  ValueType x, y, z;
 };
 
 } // namespace Bempp

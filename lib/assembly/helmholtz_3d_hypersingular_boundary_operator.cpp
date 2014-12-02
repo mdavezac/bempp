@@ -21,44 +21,72 @@
 #include "helmholtz_3d_hypersingular_boundary_operator.hpp"
 
 #include "modified_helmholtz_3d_hypersingular_boundary_operator.hpp"
+#include "context.hpp"
 
 #include "../fiber/explicit_instantiation.hpp"
 
-namespace Bempp
-{
+namespace Bempp {
 
 template <typename BasisFunctionType>
 BoundaryOperator<BasisFunctionType,
-typename ScalarTraits<BasisFunctionType>::ComplexType>
+                 typename ScalarTraits<BasisFunctionType>::ComplexType>
 helmholtz3dHypersingularBoundaryOperator(
-        const shared_ptr<const Context<BasisFunctionType,
-        typename ScalarTraits<BasisFunctionType>::ComplexType> >& context,
-        const shared_ptr<const Space<BasisFunctionType> >& domain,
-        const shared_ptr<const Space<BasisFunctionType> >& range,
-        const shared_ptr<const Space<BasisFunctionType> >& dualToRange,
-        typename ScalarTraits<BasisFunctionType>::ComplexType waveNumber,
-        const std::string& label,
-        int symmetry,
-        bool useInterpolation,
-        int interpPtsPerWavelength)
-{
-    typedef typename ScalarTraits<BasisFunctionType>::ComplexType ComplexType;
-    return modifiedHelmholtz3dHypersingularBoundaryOperator<
-            BasisFunctionType, ComplexType, ComplexType>(
-                context, domain, range, dualToRange,
-                waveNumber / ComplexType(0., 1.),
-                label, symmetry, useInterpolation, interpPtsPerWavelength);
+    const shared_ptr<const Context<
+        BasisFunctionType,
+        typename ScalarTraits<BasisFunctionType>::ComplexType>> &context,
+    const shared_ptr<const Space<BasisFunctionType>> &domain,
+    const shared_ptr<const Space<BasisFunctionType>> &range,
+    const shared_ptr<const Space<BasisFunctionType>> &dualToRange,
+    typename ScalarTraits<BasisFunctionType>::ComplexType waveNumber,
+    const std::string &label, int symmetry, bool useInterpolation,
+    int interpPtsPerWavelength) {
+  typedef typename ScalarTraits<BasisFunctionType>::ComplexType ComplexType;
+  return modifiedHelmholtz3dHypersingularBoundaryOperator<
+      BasisFunctionType, ComplexType, ComplexType>(
+      context, domain, range, dualToRange, waveNumber / ComplexType(0., 1.),
+      label, symmetry, useInterpolation, interpPtsPerWavelength);
 }
 
-#define INSTANTIATE_NONMEMBER_CONSTRUCTOR(BASIS) \
-   template BoundaryOperator<BASIS, ScalarTraits<BASIS>::ComplexType> \
-   helmholtz3dHypersingularBoundaryOperator( \
-       const shared_ptr<const Context<BASIS, ScalarTraits<BASIS>::ComplexType> >&, \
-       const shared_ptr<const Space<BASIS> >&, \
-       const shared_ptr<const Space<BASIS> >&, \
-       const shared_ptr<const Space<BASIS> >&, \
-       ScalarTraits<BASIS>::ComplexType, \
-       const std::string&, int, bool, int)
+
+template <typename BasisFunctionType>
+BoundaryOperator<BasisFunctionType,
+                 typename ScalarTraits<BasisFunctionType>::ComplexType>
+helmholtz3dHypersingularBoundaryOperator(
+    const ParameterList &parameterList,
+    const shared_ptr<const Space<BasisFunctionType>> &domain,
+    const shared_ptr<const Space<BasisFunctionType>> &range,
+    const shared_ptr<const Space<BasisFunctionType>> &dualToRange,
+    typename ScalarTraits<BasisFunctionType>::ComplexType waveNumber,
+    const std::string &label, int symmetry, bool useInterpolation,
+    int interpPtsPerWavelength) {
+
+  shared_ptr<const Context<
+      BasisFunctionType, typename ScalarTraits<BasisFunctionType>::ComplexType>>
+  context(new Context<BasisFunctionType,
+                      typename ScalarTraits<BasisFunctionType>::ComplexType>(
+      parameterList));
+
+  return helmholtz3dHypersingularBoundaryOperator(
+      context, domain, range, dualToRange, waveNumber, label, symmetry,
+      useInterpolation, interpPtsPerWavelength);
+}
+
+#define INSTANTIATE_NONMEMBER_CONSTRUCTOR(BASIS)                               \
+  template BoundaryOperator<BASIS, ScalarTraits<BASIS>::ComplexType>           \
+  helmholtz3dHypersingularBoundaryOperator(                                    \
+      const ParameterList&,                                                    \
+      const shared_ptr<const Space<BASIS>> &,                                  \
+      const shared_ptr<const Space<BASIS>> &,                                  \
+      const shared_ptr<const Space<BASIS>> &,                                  \
+      ScalarTraits<BASIS>::ComplexType, const std::string &, int, bool, int);  \
+  template BoundaryOperator<BASIS, ScalarTraits<BASIS>::ComplexType>           \
+  helmholtz3dHypersingularBoundaryOperator(                                    \
+      const shared_ptr<                                                        \
+          const Context<BASIS, ScalarTraits<BASIS>::ComplexType>> &,           \
+      const shared_ptr<const Space<BASIS>> &,                                  \
+      const shared_ptr<const Space<BASIS>> &,                                  \
+      const shared_ptr<const Space<BASIS>> &,                                  \
+      ScalarTraits<BASIS>::ComplexType, const std::string &, int, bool, int)
 FIBER_ITERATE_OVER_BASIS_TYPES(INSTANTIATE_NONMEMBER_CONSTRUCTOR);
 
 } // namespace Bempp

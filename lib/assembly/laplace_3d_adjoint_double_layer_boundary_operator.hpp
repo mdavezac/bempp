@@ -22,10 +22,10 @@
 #define bempp_laplace_3d_adjoint_double_layer_boundary_operator_hpp
 
 #include "boundary_operator.hpp"
+#include "../common/types.hpp"
 #include "symmetry.hpp"
 
-namespace Bempp
-{
+namespace Bempp {
 
 /** \ingroup laplace_3d
  *  \brief Construct a BoundaryOperator object representing the adjoint
@@ -88,12 +88,20 @@ namespace Bempp
 template <typename BasisFunctionType, typename ResultType>
 BoundaryOperator<BasisFunctionType, ResultType>
 laplace3dAdjointDoubleLayerBoundaryOperator(
-        const shared_ptr<const Context<BasisFunctionType, ResultType> >& context,
-        const shared_ptr<const Space<BasisFunctionType> >& domain,
-        const shared_ptr<const Space<BasisFunctionType> >& range,
-        const shared_ptr<const Space<BasisFunctionType> >& dualToRange,
-        const std::string& label = "",
-        int symmetry = NO_SYMMETRY);
+    const shared_ptr<const Context<BasisFunctionType, ResultType>> &context,
+    const shared_ptr<const Space<BasisFunctionType>> &domain,
+    const shared_ptr<const Space<BasisFunctionType>> &range,
+    const shared_ptr<const Space<BasisFunctionType>> &dualToRange,
+    const std::string &label = "", int symmetry = NO_SYMMETRY);
+
+template <typename BasisFunctionType, typename ResultType>
+BoundaryOperator<BasisFunctionType, ResultType>
+laplace3dAdjointDoubleLayerBoundaryOperator(
+    const ParameterList &parameterList,
+    const shared_ptr<const Space<BasisFunctionType>> &domain,
+    const shared_ptr<const Space<BasisFunctionType>> &range,
+    const shared_ptr<const Space<BasisFunctionType>> &dualToRange,
+    const std::string &label = "", int symmetry = NO_SYMMETRY);
 
 } // namespace Bempp
 
